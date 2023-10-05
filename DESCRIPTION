@@ -1,15 +1,20 @@
 Package: rehline
 Type: Package
-Title: Minimizing regularized composite ReHU/ReLU losses with linear computational complexity
+Title: Regularized composite ReLU-ReHU loss minimization with linear computation and linear convergence
 Version: 0.1.0
 Author: Yixuan Qiu, Ben Dai
 Maintainer: Yixuan Qiu <yixuanq@gmail.com>
-Description: Minimizing regularized composite ReHU/ReLU
-    losses with linear computational complexity.
+Description: Implementation of the 'ReHLine' solver for a broad class of
+    regularized empirical risk minimization problems. 'ReHLine'
+    supports any convex piecewise linear-quadratic loss functions and
+    optional linear constraints. Examples of such problems include
+    support vector machines, regularized quantile regressions, Huber
+    regressions, etc.
 License: MIT
+URL: https://github.com/softmin/ReHLine-r
+BugReports: https://github.com/softmin/ReHLine-r/issues
 Encoding: UTF-8
 LazyData: true
 Imports: Rcpp (>= 1.0.9)
 LinkingTo: Rcpp, RcppEigen
-SystemRequirements: C++11
 RoxygenNote: 7.2.3
