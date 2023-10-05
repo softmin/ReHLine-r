@@ -11,6 +11,8 @@ Description: Implementation of the 'ReHLine' solver for a broad class of
     support vector machines, regularized quantile regressions, Huber
     regressions, etc.
 License: MIT
+URL: https://github.com/softmin/ReHLine-r
+BugReports: https://github.com/softmin/ReHLine-r/issues
 Encoding: UTF-8
 LazyData: true
 Imports: Rcpp (>= 1.0.9)
