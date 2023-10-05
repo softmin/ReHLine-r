@@ -35,6 +35,25 @@
 ##'
 ##'         Ben Dai \url{https://bendai.org}
 ##'
+##' @examples
+##' # Simulate data
+##' set.seed(123)
+##' n = 5000
+##' d = 100
+##' x = matrix(rnorm(n * d), n, d)
+##' beta0 = rnorm(d)
+##' y = c(x %*% beta0) + rnorm(n, sd = 0.1)
+##' lam1 = 0.01
+##' lam2 = 0.01
+##'
+##' # Fit elastic net regularized quantile regression
+##' res = elastic_qr(x, y, kappa = kappa, lam1 = lam1, lam2 = lam2,
+##'                  max_iter = 1000, tol = 1e-5)
+##' bhat = res$beta
+##'
+##' # Compare with the true beta
+##' plot(beta0, bhat[1:d])
+##' abline(0, 1, col = "red")
 elastic_qr = function(x, y, kappa = 0.5, lam1 = 0.1, lam2 = 0.1,
     max_iter = 1000, tol = 1e-5, shrink = TRUE, verbose = 0)
 {
