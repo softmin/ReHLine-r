@@ -42,6 +42,39 @@ where \eqn{\beta\in\mathbb{R}^d} is a length-\eqn{d} vector,
 \eqn{y_i\in\{-1,1\}} is a binary label,
 and \eqn{C} is the cost parameter.
 }
+\examples{
+# Simulate a data set
+set.seed(123)
+n = 5000
+p = 100
+x1 = matrix(rnorm(n / 2 * p, -0.25, 0.1), n / 2)
+x2 = matrix(rnorm(n / 2 * p, 0.25, 0.1), n / 2)
+x = rbind(x1, x2)
+beta = 0.1 * rnorm(p)
+prob = plogis(c(x \%*\% beta))
+y = 2 * rbinom(n, 1, prob) - 1
+C = 0.5
+
+# Compute using ReHLine
+time1 = system.time(
+    res1 <- svm(x, y, C = C * n, max_iter = 1000, tol = 1e-3, verbose = 0)
+)
+beta1 = res1$beta
+print(time1)
+
+# Compare the result with LiblineaR
+if (require(LiblineaR))
+{
+    time2 = system.time(
+        res2 <- LiblineaR(x, y, type = 3, cost = C, epsilon = 1e-3, bias = 0, verbose = FALSE)
+    )
+    beta2 = as.numeric(res2$W)
+    print(time2)
+
+    plot(beta1, beta2)
+    abline(0, 1, col = "red")
+}
+}
 \author{
 Yixuan Qiu \url{https://statr.me}
 
