@@ -16,5 +16,6 @@ BugReports: https://github.com/softmin/ReHLine-r/issues
 Encoding: UTF-8
 LazyData: true
 Imports: Rcpp (>= 1.0.9)
+Suggests: LiblineaR, hqreg
 LinkingTo: Rcpp, RcppEigen
 RoxygenNote: 7.2.3

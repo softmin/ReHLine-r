@@ -9,17 +9,15 @@ x = matrix(rnorm(n * d), n, d)
 beta0 = rnorm(d)
 y = c(x %*% beta0) + rnorm(n, sd = 0.1)
 kappa = IQR(y) / 10
-
 lam1 = 0.05
 lam2 = 0.05
 
+# Objective function value
 huber = function(x, kappa)
 {
     xabs = abs(x)
     ifelse(xabs <= kappa, xabs^2 / 2, kappa * (xabs - kappa / 2))
 }
-
-# Objective function value
 objfn = function(beta, x, y, kappa, lam1, lam2)
 {
     d = length(beta)
@@ -40,8 +38,9 @@ bhat1 = as.numeric(res1$beta[, 2])
 objfn(bhat1, x, y, kappa, lam1, lam2)
 
 # ReHLine
-bhat2 = elastic_huber(x, y, kappa = kappa, lam1 = lam1, lam2 = lam2,
-                      max_iter = 1000, tol = 1e-5)
+res2 = elastic_huber(x, y, kappa = kappa, lam1 = lam1, lam2 = lam2,
+                     max_iter = 1000, tol = 1e-5)
+bhat2 = res2$beta
 objfn(bhat2, x, y, kappa, lam1, lam2)
 
 # Compare estimates
