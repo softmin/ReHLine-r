@@ -69,5 +69,5 @@ elastic_huber = function(x, y, kappa = 1.0, lam1 = 0.1, lam2 = 0.1,
 
     res = rehline(Xmat, Umat, Vmat, Smat, Tmat, Tau, max_iter = max_iter,
                   tol = tol, shrink = shrink, verbose = verbose)
-    res$beta
+    res
 }

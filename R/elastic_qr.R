@@ -57,5 +57,5 @@ elastic_qr = function(x, y, kappa = 0.5, lam1 = 0.1, lam2 = 0.1,
 
     res = rehline(Xmat, Umat, Vmat, max_iter = max_iter,
                   tol = tol, shrink = shrink, verbose = verbose)
-    res$beta
+    res
 }
