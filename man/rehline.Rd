@@ -26,7 +26,10 @@ and \eqn{d} features.}
 
 \item{Umat, Vmat, Smat, Tmat}{The matrices \eqn{U=(u_{li})}, \eqn{V=(v_{li})},
 \eqn{S=(s_{hi})}, and \eqn{T=(t_{hi})} in the
-ReHLine optimization problem. Can be set to
+ReHLine optimization problem. \eqn{U} and \eqn{V}
+are of size \eqn{L\times n}{L * n}, and \eqn{S} and
+\eqn{T} are of size \eqn{H\times n}{H * n}.
+Some of these matrices can be set to
 \code{NULL}, meaning excluding the ReLU or ReHU
 terms in the objective function.}
 
