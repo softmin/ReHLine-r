@@ -8,7 +8,7 @@ svm(x, y, C = 1, max_iter = 1000, tol = 1e-05, shrink = TRUE, verbose = 0)
 }
 \arguments{
 \item{x}{The data matrix \eqn{X=(x_1,\ldots,x_n)^T} of size
-\eqn{n\times d}, representing \eqn{n} observations
+\eqn{n\times d}{n * d}, representing \eqn{n} observations
 and \eqn{d} features.}
 
 \item{y}{The length-\eqn{n} response vector.}
@@ -34,12 +34,12 @@ A list of the following components:
 This function solves the regularized support vector machine
 of the following form:
 \deqn{
-\min_{\beta}\ \frac{C}{n}\sum_{i=1}^n \max(1-y_i x_i^T\beta,0) +
-\frac{1}{2}\Vert\beta\Vert_2^2
+\min_{\beta}\ \frac{C}{n}\sum_{i=1}^n \max(1-y_i x_i^T \beta,0) +
+\frac{1}{2}\Vert \beta \Vert_2^2
 }
-where \eqn{\beta\in\mathbb{R}^d} is a length-\eqn{d} vector,
-\eqn{x_i\in\mathbb{R}^d} is the feature vector for the \eqn{i}-th observation,
-\eqn{y_i\in\{-1,1\}} is a binary label,
+where \eqn{\beta\in\mathbb{R}^d}{\beta} is a length-\eqn{d} vector,
+\eqn{x_i\in\mathbb{R}^d}{x_i} is the feature vector for the \eqn{i}-th observation,
+\eqn{y_i\in\{-1,1\}}{y_i \in {-1, 1}} is a binary label,
 and \eqn{C} is the cost parameter.
 }
 \examples{

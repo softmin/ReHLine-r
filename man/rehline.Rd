@@ -21,7 +21,7 @@ rehline(
 }
 \arguments{
 \item{Xmat}{The data matrix \eqn{X=(x_1,\ldots,x_n)^T} of size
-\eqn{n\times d}, representing \eqn{n} observations
+\eqn{n\times d}{n * d}, representing \eqn{n} observations
 and \eqn{d} features.}
 
 \item{Umat, Vmat, Smat, Tmat}{The matrices \eqn{U=(u_{li})}, \eqn{V=(v_{li})},
@@ -33,10 +33,10 @@ Some of these matrices can be set to
 \code{NULL}, meaning excluding the ReLU or ReHU
 terms in the objective function.}
 
-\item{Tau}{Either a numeric scalar, or an \eqn{H\times n} matrix
+\item{Tau}{Either a numeric scalar, or an \eqn{H\times n}{H * n} matrix
 representing \eqn{\tau=(\tau_{hi})}.}
 
-\item{Amat}{An \eqn{m\times d} matrix representing the
+\item{Amat}{An \eqn{m\times d}{m * d} matrix representing the
 coefficients of \eqn{m} constraints. Can be
 set to \code{NULL}, meaning no constraint is imposed.}
 
@@ -62,20 +62,20 @@ A list of the following components:
 This function solves the regularized composite ReLU-ReHU minimization
 problem (called \emph{ReHLine optimization} for short) of the following form:
 \deqn{
-\min_{\beta}\ \sum_{i=1}^n \sum_{l=1}^L\mathrm{ReLU}(u_{li}x_i^T\beta+v_{li})+
-\sum_{i=1}^n \sum_{h=1}^H\mathrm{ReHU}_{\tau_{hi}}(s_{hi}x_i^T\beta+t_{hi})+
-\frac{1}{2}\Vert\beta\Vert^2
+\min_{\beta}\ \sum_{i=1}^n \sum_{l=1}^L\mathrm{ReLU}(u_{li}x_i^T \beta+v_{li})+
+\sum_{i=1}^n \sum_{h=1}^H\mathrm{ReHU}_{\tau_{hi}}(s_{hi}x_i^T \beta+t_{hi})+
+\frac{1}{2}\Vert \beta \Vert^2
 }
-subject to general linear constraints \eqn{A\beta+b\ge 0},
+subject to general linear constraints \eqn{A\beta+b\ge 0}{A * beta >= 0},
 where \eqn{\beta\in\mathbb{R}^d}{\beta} is a length-\eqn{d} vector,
-\eqn{x_i\in\mathbb{R}^d} is the feature vector for the \eqn{i}-th observation,
-\eqn{U=(u_{li})} and \eqn{V=(v_{li})} are \eqn{L\times n} matrices,
+\eqn{x_i\in\mathbb{R}^d}{x_i} is the feature vector for the \eqn{i}-th observation,
+\eqn{U=(u_{li})} and \eqn{V=(v_{li})} are \eqn{L\times n}{L * n} matrices,
 \eqn{S=(s_{hi})}, \eqn{T=(t_{hi})}, and \eqn{\tau=(\tau_{hi})} are
-\eqn{H\times n} matrices, \eqn{A} is an \eqn{m\times d} matrix,
+\eqn{H\times n}{H * n} matrices, \eqn{A} is an \eqn{m\times d}{m * d} matrix,
 and \eqn{b} is a length-\eqn{m} vector.
 
-The \eqn{\mathrm{ReLU}} function is \eqn{\mathrm{ReLU}(x)=\max(x, 0)},
-and \eqn{\mathrm{ReHU}_\tau} is defined as
+The \eqn{\mathrm{ReLU}}{ReLU} function is \eqn{\mathrm{ReLU}(x)=\max(x, 0)}{ReLU(x)=max(x, 0)},
+and \eqn{\mathrm{ReHU}_\tau}{ReHU} is defined as
 \deqn{
 \mathrm{ReHU}_\tau(z)=
 \begin{cases}

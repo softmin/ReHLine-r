@@ -4,10 +4,10 @@
 ##' This function solves the elastic net regularized Huber regression
 ##' (ElasticHuber) of the following form:
 ##' \deqn{
-##' \min_{\beta}\ \frac{1}{n}\sum_{i=1}^n H_\kappa(y_i-x_i^T\beta)+
-##' \lambda_1\Vert\beta\Vert_1 + \frac{\lambda_2}{2}\Vert\beta\Vert_2^2
+##' \min_{\beta}\ \frac{1}{n}\sum_{i=1}^n H_\kappa(y_i-x_i^T \beta)+
+##' \lambda_1\Vert \beta \Vert_1 + \frac{\lambda_2}{2}\Vert \beta \Vert_2^2
 ##' }
-##' where \eqn{H_\kappa(\cdot)} is the Huber loss with parameter \eqn{\kappa},
+##' where \eqn{H_\kappa(\cdot)}{H_\kappa(.)} is the Huber loss with parameter \eqn{\kappa},
 ##' \deqn{
 ##' H_\kappa(z)=
 ##' \begin{cases}
@@ -15,14 +15,14 @@
 ##' \kappa(|z|-\kappa/2), & |z|>\kappa
 ##' \end{cases},
 ##' }
-##' \eqn{\beta\in\mathbb{R}^d} is a length-\eqn{d} vector,
-##' \eqn{x_i\in\mathbb{R}^d} is the feature vector for the \eqn{i}-th observation,
-##' \eqn{y_i\in\mathbb{R}} is the \eqn{i}-th response variable value,
+##' \eqn{\beta\in\mathbb{R}^d}{\beta} is a length-\eqn{d} vector,
+##' \eqn{x_i\in\mathbb{R}^d}{x_i} is the feature vector for the \eqn{i}-th observation,
+##' \eqn{y_i\in\mathbb{R}}{y_i} is the \eqn{i}-th response variable value,
 ##' and \eqn{\lambda_1,\lambda_2>0} are weights of lasso and ridge penalties,
 ##' respectively.
 ##'
 ##' @param x          The data matrix \eqn{X=(x_1,\ldots,x_n)^T} of size
-##'                   \eqn{n\times d}, representing \eqn{n} observations
+##'                   \eqn{n\times d}{n * d}, representing \eqn{n} observations
 ##'                   and \eqn{d} features.
 ##' @param y          The length-\eqn{n} response vector.
 ##' @param kappa      Parameter of the Huber loss.
