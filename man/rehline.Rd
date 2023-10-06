@@ -86,6 +86,29 @@ Many popular empirical risk minimization problems can be expressed
 in the form of ReHLine optimization, such as SVM, quantile regression,
 Huber regression, etc.
 }
+\examples{
+set.seed(123)
+n = 500
+d = 10
+L = 5
+H = 4
+m = 3
+
+Xmat = matrix(rnorm(n * d), n, d)
+Umat = matrix(rnorm(L * n), L, n)
+Vmat = matrix(rnorm(L * n), L, n)
+Smat = matrix(rnorm(H * n), H, n)
+Tmat = matrix(rnorm(H * n), H, n)
+Tau = Inf
+Amat = matrix(rnorm(m * d), m, d)
+bvec = rnorm(m)
+
+res = rehline(
+    Xmat, Umat, Vmat, Smat, Tmat, Tau, Amat, bvec,
+    max_iter = 1000, tol = 1e-3, verbose = 0
+)
+print(res$beta)
+}
 \author{
 Yixuan Qiu \url{https://statr.me}
 
