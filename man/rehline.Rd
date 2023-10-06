@@ -111,6 +111,14 @@ res = rehline(
     max_iter = 1000, tol = 1e-3, verbose = 0
 )
 print(res$beta)
+
+res = rehline(
+    Xmat, Umat = NULL, Vmat = NULL,
+    Smat = Smat, Tmat = Tmat, Tau = Tau,
+    Amat = NULL, bvec = NULL,
+    max_iter = 1000, tol = 1e-3, verbose = 0
+)
+print(res$beta)
 }
 \author{
 Yixuan Qiu \url{https://statr.me}
