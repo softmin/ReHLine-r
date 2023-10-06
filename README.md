@@ -16,7 +16,7 @@ and [R](https://github.com/softmin/ReHLine-r) interfaces to the
 in efficient C++ code.
 This repository provides the `rehline` R package.
 
-## 📮 Formulation
+## 📝 Formulation
 
 **ReHLine** is designed to address the empirical regularized ReLU-ReHU minimization problem, named *ReHLine optimization*, of the following form:
 ```math
@@ -37,7 +37,7 @@ This formulation has a wide range of applications spanning various fields, inclu
 
 ![](man/figures/tab.png)
 
-## Basic usage
+## 📒 Basic usage
 
 The usage of the `rehline` R package is very straightforwawrd.
 For general ReHLine optimization problems, simply specify the
@@ -124,7 +124,7 @@ head(beta2)
 ## [1]  0.6155191 -0.9444753  0.0734169  0.0397688  0.4258707 -0.5430257
 ```
 
-## 📚 Benchmark (powered by benchopt)
+## ⌛ Benchmark (powered by benchopt)
 
 Some existing problems of recent interest in statistics and machine
 learning can be solved by **ReHLine**, and we provide reproducible
