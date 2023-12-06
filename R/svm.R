@@ -21,12 +21,15 @@
 ##' @param tol        Tolerance parameter for convergence test.
 ##' @param shrink     Whether to use the shrinkage algorithm.
 ##' @param verbose    Level of verbosity.
+##' @param trace_freq Trace objective function values every \code{trace_freq}
+##'                   iterations. Only works if \code{verbose > 0}.
 ##'
 ##' @return A list of the following components:
 ##' \item{beta}{Optimized value of the \eqn{\beta} vector.}
 ##' \item{xi,Lambda,Gamma}{Values of dual variables.}
 ##' \item{niter}{Number of iterations used.}
 ##' \item{dual_objfns}{Dual objective function values during the optimization process.}
+##' \item{primal_objfns}{Primal objective function values during the optimization process.}
 ##'
 ##' @author Yixuan Qiu \url{https://statr.me}
 ##'
@@ -64,14 +67,14 @@
 ##'     plot(beta1, beta2)
 ##'     abline(0, 1, col = "red")
 ##' }
-svm = function(x, y, C = 1, max_iter = 1000, tol = 1e-5, shrink = TRUE, verbose = 0)
+svm = function(x, y, C = 1, max_iter = 1000, tol = 1e-5, shrink = TRUE, verbose = 0, trace_freq = 100)
 {
     n = nrow(x)
 
     Umat = -C / n * matrix(y, nrow = 1)
     Vmat = matrix(C / n, 1, n)
 
-    res = rehline(x, Umat, Vmat, max_iter = max_iter,
-                  tol = tol, shrink = shrink, verbose = verbose)
+    res = rehline(x, Umat, Vmat, max_iter = max_iter, tol = tol,
+                  shrink = shrink, verbose = verbose, trace_freq = trace_freq)
     res
 }

@@ -53,12 +53,15 @@
 ##' @param tol                  Tolerance parameter for convergence test.
 ##' @param shrink               Whether to use the shrinkage algorithm.
 ##' @param verbose              Level of verbosity.
+##' @param trace_freq           Trace objective function values every \code{trace_freq}
+##'                             iterations. Only works if \code{verbose > 0}.
 ##'
 ##' @return A list of the following components:
 ##' \item{beta}{Optimized value of the \eqn{\beta} vector.}
 ##' \item{xi,Lambda,Gamma}{Values of dual variables.}
 ##' \item{niter}{Number of iterations used.}
 ##' \item{dual_objfns}{Dual objective function values during the optimization process.}
+##' \item{primal_objfns}{Primal objective function values during the optimization process.}
 ##'
 ##' @author Yixuan Qiu \url{https://statr.me}
 ##'
@@ -97,7 +100,7 @@
 rehline = function(
     Xmat, Umat, Vmat, Smat = NULL, Tmat = NULL, Tau = Inf,
     Amat = NULL, bvec = NULL,
-    max_iter = 1000, tol = 1e-5, shrink = TRUE, verbose = 0)
+    max_iter = 1000, tol = 1e-5, shrink = TRUE, verbose = 0, trace_freq = 100)
 {
     n = nrow(Xmat)
     d = ncol(Xmat)
@@ -132,6 +135,6 @@ rehline = function(
 
     rehline_(
         Xmat, Amat, bvec, Umat, Vmat, Smat, Tmat, Tau,
-        max_iter, tol, shrink, verbose
+        max_iter, tol, shrink, verbose, trace_freq
     )
 }

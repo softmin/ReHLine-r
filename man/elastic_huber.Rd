@@ -13,7 +13,8 @@ elastic_huber(
   max_iter = 1000,
   tol = 1e-05,
   shrink = TRUE,
-  verbose = 0
+  verbose = 0,
+  trace_freq = 100
 )
 }
 \arguments{
@@ -34,6 +35,9 @@ and \eqn{d} features.}
 \item{shrink}{Whether to use the shrinkage algorithm.}
 
 \item{verbose}{Level of verbosity.}
+
+\item{trace_freq}{Trace objective function values every \code{trace_freq}
+iterations. Only works if \code{verbose > 0}.}
 }
 \value{
 A list of the following components:
@@ -41,6 +45,7 @@ A list of the following components:
 \item{xi,Lambda,Gamma}{Values of dual variables.}
 \item{niter}{Number of iterations used.}
 \item{dual_objfns}{Dual objective function values during the optimization process.}
+\item{primal_objfns}{Primal objective function values during the optimization process.}
 }
 \description{
 This function solves the elastic net regularized Huber regression

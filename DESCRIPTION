@@ -1,7 +1,7 @@
 Package: rehline
 Type: Package
 Title: Regularized composite ReLU-ReHU loss minimization with linear computation and linear convergence
-Version: 0.1.0
+Version: 0.2.0
 Author: Yixuan Qiu, Ben Dai
 Maintainer: Yixuan Qiu <yixuanq@gmail.com>
 Description: Implementation of the 'ReHLine' solver for a broad class of

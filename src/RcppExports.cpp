@@ -11,9 +11,9 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
-// rehline
-List rehline(NumericMatrix Xmat, NumericMatrix Amat, NumericVector bvec, NumericMatrix Umat, NumericMatrix Vmat, NumericMatrix Smat, NumericMatrix Tmat, NumericMatrix TauMat, int max_iter, double tol, bool shrink, int verbose);
-RcppExport SEXP _rehline_rehline(SEXP XmatSEXP, SEXP AmatSEXP, SEXP bvecSEXP, SEXP UmatSEXP, SEXP VmatSEXP, SEXP SmatSEXP, SEXP TmatSEXP, SEXP TauMatSEXP, SEXP max_iterSEXP, SEXP tolSEXP, SEXP shrinkSEXP, SEXP verboseSEXP) {
+// rehline_impl
+List rehline_impl(NumericMatrix Xmat, NumericMatrix Amat, NumericVector bvec, NumericMatrix Umat, NumericMatrix Vmat, NumericMatrix Smat, NumericMatrix Tmat, NumericMatrix TauMat, int max_iter, double tol, bool shrink, int verbose, int trace_freq);
+RcppExport SEXP _rehline_rehline_impl(SEXP XmatSEXP, SEXP AmatSEXP, SEXP bvecSEXP, SEXP UmatSEXP, SEXP VmatSEXP, SEXP SmatSEXP, SEXP TmatSEXP, SEXP TauMatSEXP, SEXP max_iterSEXP, SEXP tolSEXP, SEXP shrinkSEXP, SEXP verboseSEXP, SEXP trace_freqSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -29,13 +29,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type tol(tolSEXP);
     Rcpp::traits::input_parameter< bool >::type shrink(shrinkSEXP);
     Rcpp::traits::input_parameter< int >::type verbose(verboseSEXP);
-    rcpp_result_gen = Rcpp::wrap(rehline(Xmat, Amat, bvec, Umat, Vmat, Smat, Tmat, TauMat, max_iter, tol, shrink, verbose));
+    Rcpp::traits::input_parameter< int >::type trace_freq(trace_freqSEXP);
+    rcpp_result_gen = Rcpp::wrap(rehline_impl(Xmat, Amat, bvec, Umat, Vmat, Smat, Tmat, TauMat, max_iter, tol, shrink, verbose, trace_freq));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_rehline_rehline", (DL_FUNC) &_rehline_rehline, 12},
+    {"_rehline_rehline_impl", (DL_FUNC) &_rehline_rehline_impl, 13},
     {NULL, NULL, 0}
 };
 
