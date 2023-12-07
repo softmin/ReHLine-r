@@ -3,8 +3,8 @@
 
 #include <vector>
 #include <numeric>
-#include <iostream>
 #include <type_traits>
+#include <iostream>
 #include <RcppEigen.h>
 
 namespace rehline {
@@ -12,28 +12,44 @@ namespace rehline {
 // ========================= Internal utility functions ========================= //
 namespace internal {
 
-// Used in random_shuffle(), generating a random integer from {0, 1, ..., i-1}
-// This function is designed for R, as CRAN requires using R's own RNG
-// For C++ or Python, the following simplified version can be used:
-/*
+// A simple wrapper of existing RNG
+//
+// template <typename Index = int>
+// class SimpleRNG
+// {
+// private:
+//     std::mt19937 m_rng;
+//
+// public:
+//     // Set seed
+//     void seed(Index seed) { m_rng.seed(seed); }
+//
+//     // Used in random_shuffle(), generating a random integer from {0, 1, ..., i-1}
+//     Index operator()(Index i)
+//     {
+//         return Index(m_rng() % i);
+//     }
+// };
 
+// This class is designed for R, as CRAN requires using R's own RNG
 template <typename Index = int>
-Index rand_less_than(Index i)
+class SimpleRNG
 {
-    return Index(std::rand() % i);
-}
+public:
+    // Set seed -- do nothing here as R has its own seeding method
+    void seed(Index seed) {}
 
-*/
-template <typename Index = int>
-Index rand_less_than(Index i)
-{
-    // Typically on Linux and MacOS, RAND_MAX == 2147483647
-    // Windows has different definition, RAND_MAX == 32767
-    // We manually set the limit to make sure that different OS are compatible
-    std::int32_t rand_max = std::numeric_limits<std::int32_t>::max();
-    std::int32_t r = std::int32_t(R::unif_rand() * rand_max);
-    return Index(r % i);
-}
+    // Used in random_shuffle(), generating a random integer from {0, 1, ..., i-1}
+    Index operator()(Index i)
+    {
+        // Typically on Linux and MacOS, RAND_MAX == 2147483647
+        // Windows has different definition, RAND_MAX == 32767
+        // We manually set the limit to make sure that different OS are compatible
+        constexpr std::int32_t rand_max = std::numeric_limits<std::int32_t>::max();
+        std::int32_t r = std::int32_t(R::unif_rand() * rand_max);
+        return Index(r % i);
+    }
+};
 
 // Randomly shuffle a vector
 //
@@ -131,6 +147,9 @@ private:
         Eigen::Ref<const Matrix>,
         Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor>
     >::type;
+
+    // RNG
+    internal::SimpleRNG<Index> m_rng;
 
     // Dimensions
     const Index m_n;
@@ -367,7 +386,7 @@ private:
             return;
 
         // Permutation
-        internal::random_shuffle(fv_set.begin(), fv_set.end(), internal::rand_less_than<Index>);
+        internal::random_shuffle(fv_set.begin(), fv_set.end(), m_rng);
         // New free variable set
         std::vector<Index> new_set;
         new_set.reserve(fv_set.size());
@@ -427,7 +446,7 @@ private:
             return;
 
         // Permutation
-        internal::random_shuffle(fv_set.begin(), fv_set.end(), internal::rand_less_than<Index>);
+        internal::random_shuffle(fv_set.begin(), fv_set.end(), m_rng);
         // New free variable set
         std::vector<std::pair<Index, Index>> new_set;
         new_set.reserve(fv_set.size());
@@ -493,7 +512,7 @@ private:
             return;
 
         // Permutation
-        internal::random_shuffle(fv_set.begin(), fv_set.end(), internal::rand_less_than<Index>);
+        internal::random_shuffle(fv_set.begin(), fv_set.end(), m_rng);
         // New free variable set
         std::vector<std::pair<Index, Index>> new_set;
         new_set.reserve(fv_set.size());
@@ -591,6 +610,8 @@ public:
         // Set primal variable based on duals
         set_primal();
     }
+
+    inline void set_seed(Index seed) { m_rng.seed(seed); }
 
     inline Index solve_vanilla(
         std::vector<Scalar>& dual_objfns, std::vector<Scalar>& primal_objfns,
@@ -764,6 +785,7 @@ void rehline_solver(
     Index niter;
     if (shrink > 0)
     {
+        solver.set_seed(shrink);
         niter = solver.solve(dual_objfns, primal_objfns, max_iter, tol, verbose, trace_freq, cout);
     } else {
         niter = solver.solve_vanilla(dual_objfns, primal_objfns, max_iter, tol, verbose, trace_freq, cout);
